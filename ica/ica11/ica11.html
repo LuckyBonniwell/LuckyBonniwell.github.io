@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+      body {
+        text-align: center;
+      }
+      div .generate {
+        background-color: yellow;
+      }
+      article {
+        display: flex;
+        justify-content: center;
+      }
+      p {
+        border: 1px dotted black;
+        max-width: 400px;
+      }
+    </style>
 </head>
 <body>
     <div>
@@ -21,13 +37,23 @@
   <button class="generate">Generate random story</button>
 </div>
 <!-- Thanks a lot to Willy Aguirre for his help with the code for this assessment -->
+ <article>
 <p class="story"></p>
+ </article>
 <script>
     // Complete variable definitions and random functions
 
 const customName = document.getElementById("custom-name");
 const generateBtn = document.querySelector(".generate");
 const story = document.querySelector(".story");
+  let USTemp = "94 Fahrenheit";
+  let UKTemp = "34.5 Celsius";
+  let USWeight = "300 pounds";
+  let UKWeight = "21.4 stones";
+  let changeTemp = USTemp;
+  let changeWeight = UKWeight;
+  let changeName = "Bob";
+
 
 function randomValueFromArray(array) {
   const random = Math.floor(Math.random() * array.length);
@@ -53,7 +79,10 @@ const events = ["spontaneously combusted", "melted into a puddle on the sidewalk
 // Partial return random string function
 
 function returnRandomStoryString() {
-  // It was 94 Fahrenheit outside, so :insertx: went for a walk. When they got to :inserty:, they stared in horror for a few moments, then :insertz:. Bob saw the whole thing, but was not surprised — :insertx: weighs 300 pounds, and it was a hot day.
+  let randomChar = randomValueFromArray(characters);
+  let randomEvent = randomValueFromArray(event);
+  let randomPlace = randomValueFromArray(places);
+  let storyText = `It was ${changeTemp} outside, so ${randomChar} went for a walk. When they got to ${randomPlace}, they stared in horror for a few moments, then ${randomEvent}. ${changeName} saw the whole thing, but was not surprised — ${randomChar} weighs ${changeWeight}, and it was a hot day.`
 
   return storyText;
 }
@@ -65,15 +94,18 @@ generateBtn.addEventListener("click", generateStory);
 function generateStory() {
   if (customName.value !== "") {
     const name = customName.value;
+    changeName = name;
   }
-
   if (document.getElementById("uk").checked) {
     const weight = Math.round(300);
     const temperature = Math.round(94);
+    changeTemp = UKTemp;
+    changeWeight = UKWeight;
   }
-
+  let newStory = returnRandomStoryString();
+  console.log(returnRandomStoryString());
   // TODO: replace "" with the correct expression
-  story.textContent = "";
+  story.textContent = newStory;
   story.style.visibility = "visible";
 }
     </script>
